@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { Button } from "react-bootstrap";
+import ConfirmationContent from "../components/ConfirmationContent";
+
+import "./pages.css";
 
 const Confirmation = ({
   successResponse,
@@ -11,31 +15,81 @@ const Confirmation = ({
     } = successResponse;
     // You can interpolate the message with props from the successResponse variable
     return (
-      <div>
-        <h2>
-          Welcome, {given_name} {family_name}!
-        </h2>
-        Your account has successfully being created. Please check your email and
-        verify your account to proceed.
-      </div>
+      <Confirmation
+        left={
+          <div className='content__messageCard'>
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/images/welcome.png`}
+              alt='error'
+              width='inherit'
+              height='inheirt'
+            />
+          </div>
+        }
+        right={
+          <div className='content__messageCard'>
+            <h2>
+              Great! {given_name} {family_name}, your account is ready.
+            </h2>
+            <p>
+              Your account has successfully being created. Please check your
+              email and verify your account to proceed.
+            </p>
+          </div>
+        }
+      />
     );
   } else if (errorResponse) {
     return (
-      <div>
-        An Error occurred please click here to sign up again.
-        <button onClick={() => setShowConfirmation(false)}>
-          Sign up again
-        </button>
-      </div>
+      <ConfirmationContent
+        left={
+          <div className='content__messageCard'>
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/images/error.png`}
+              alt='error'
+              width='inherit'
+              height='inheirt'
+            />
+          </div>
+        }
+        right={
+          <div className='content__messageCard'>
+            <h2>An Error occurred please click here to sign up again.</h2>
+            <Button
+              variant='success'
+              onClick={() => setShowConfirmation(false)}
+            >
+              Sign up again
+            </Button>
+          </div>
+        }
+      />
     );
   } else {
     return (
-      <div>
-        An Error occurred please click here to sign up again.
-        <button onClick={() => setShowConfirmation(false)}>
-          Sign up again
-        </button>
-      </div>
+      <ConfirmationContent
+        left={
+          <div className='content__messageCard'>
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/images/error.png`}
+              alt='error'
+              width='inherit'
+              height='inheirt'
+            />
+          </div>
+        }
+        right={
+          <div className='content__messageCard'>
+            <h2>An Error occurred please click here to sign up again.</h2>
+            <Button
+              variant='success'
+              onClick={() => setShowConfirmation(false)}
+            >
+              Sign up again
+            </Button>
+          </div>
+        }
+      />
     );
   }
   //   return <div>Hello confirmation</div>;

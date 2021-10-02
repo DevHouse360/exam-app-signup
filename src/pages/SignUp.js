@@ -16,7 +16,14 @@ axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
   const onSubmit = async (values) => {
     try {
-      const result = await axios.post(signUp_url, values);
+      const data = {
+        organization_name: values?.organization_name,
+        given_name: values?.given_name,
+        family_name: values?.family_name,
+        email: values?.email,
+        password: values?.password,
+      };
+      const result = await axios.post(signUp_url, data);
       const response = result.data;
       // Passing response out to parent component!!
       handleSuccessResponse(response);
@@ -42,7 +49,7 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
           xl={6}
           className='d-none d-xl-block p-0 vh-100'
           style={{
-            backgroundImage: `url('/assets/images/exam.jpg') norepeat`,
+            backgroundImage: `url('${process.env.PUBLIC_URL}/assets/images/exam.jpg')`,
             backgroundColor: "#000000",
             backgroundSize: "cover",
           }}
@@ -55,10 +62,11 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
             <Card.Body className='rounded-0 text-left p-5'>
               <FinalForm
                 onSubmit={onSubmit}
+                validate={formValidation}
                 render={({ handleSubmit, values, submitting, pristine }) => (
                   <Form onSubmit={handleSubmit}>
                     <Row>
-                      <h2>Create Your Examer Account</h2>
+                      <h2>Create Your Organization Account</h2>
                     </Row>
                     <Row>
                       <Col>
@@ -137,7 +145,6 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
                         />
                       </Col>
                     </Row>
-                    <pre>{JSON.stringify(values, 0, 2)}</pre>
                     <Button
                       variant='success'
                       type='submit'
