@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 
-const signUp_url =
-  "https://auth0-microservice-6sditrkx2a-uc.a.run.app/api/v1.0/signup";
-
-axios.defaults.headers.common["ACTION_SECRET"] =
-  "KcJAKiGq8yTeSrxrmgdKcQIWf/d8Oirz";
+axios.defaults.headers.common[
+  "ACTION_SECRET"
+] = `${process.env.REACT_APP_ACTION_SECRET}`;
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -54,6 +52,9 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
 
     if (!values.password.trim()) {
       errors.password = "password is required";
+    } else if (values.password.trim().length <= 6) {
+      errors.password = "password can not be less than 6 characters";
+    } else {
     }
     if (!values.repeatPassword.trim()) {
       errors.repeatPassword = "password confirmation is required";
@@ -70,6 +71,8 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
     setIsSubmitted(true);
   };
 
+  console.log(process.env);
+
   useEffect(() => {
     const submitForm = async () => {
       try {
@@ -80,7 +83,10 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
           email: formValues?.email,
           password: formValues?.password,
         };
-        const result = await axios.post(signUp_url, data);
+        const result = await axios.post(
+          `${process.env.REACT_APP_SIGNUP_URL}`,
+          data
+        );
         const response = result.data;
         // Passing response out to parent component!!
         handleSuccessResponse(response);
@@ -94,7 +100,17 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
     if (Object.keys(formErrors).length === 0 && isSubmitted) {
       submitForm();
     }
-  }, [formErrors]);
+  }, [
+    formErrors,
+    formValues?.email,
+    formValues?.family_name,
+    formValues?.given_name,
+    formValues?.organization_name,
+    formValues?.password,
+    handleErrorResponse,
+    handleSuccessResponse,
+    isSubmitted,
+  ]);
 
   return (
     <Container fluid>
@@ -199,7 +215,7 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
                   </Col>
                   <Col>
                     <Form.Group>
-                      <Form.Label>repeat password</Form.Label>
+                      <Form.Label>confirm password</Form.Label>
                       <Form.Control
                         type={formValues.isShowPassword ? "text" : "password"}
                         name='repeatPassword'
