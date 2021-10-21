@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
-import { Field, Form as FinalForm } from "react-final-form";
 
 const signUp_url =
   "https://auth0-microservice-6sditrkx2a-uc.a.run.app/api/v1.0/signup";
@@ -14,7 +13,7 @@ axios.defaults.headers.common["Content-Type"] = "application/json";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
-  const onSubmit = async (values) => {
+  const handleFormSubmit = async (values) => {
     try {
       const data = {
         organization_name: values?.organization_name,
@@ -77,108 +76,66 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
         >
           <Card className='border-0 ms-auto me-auto login-card p-2'>
             <Card.Body className='rounded-0 text-left p-5'>
-              <FinalForm
-                onSubmit={onSubmit}
-                validate={formValidation}
-                render={({ handleSubmit, values, submitting, pristine }) => (
-                  <Form onSubmit={handleSubmit}>
-                    <Row>
-                      <Col>logo here</Col>
-                    </Row>
-                    <Row>
-                      <h3>Create Your Organization Account</h3>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Field
-                          name='organization_name'
-                          render={({ input, meta }) => (
-                            <Form.Group>
-                              <Form.Label>Organization Name</Form.Label>
-                              <Form.Control type='text' {...input} />
-                            </Form.Group>
-                          )}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Field
-                          name='given_name'
-                          render={({ input, meta }) => (
-                            <Form.Group>
-                              <Form.Label>First Name</Form.Label>
-                              <Form.Control type='text' {...input} />
-                            </Form.Group>
-                          )}
-                        />
-                      </Col>
-                      <Col>
-                        <Field
-                          name='family_name'
-                          render={({ input, meta }) => (
-                            <Form.Group>
-                              <Form.Label>Last Name</Form.Label>
-                              <Form.Control type='text' {...input} />
-                            </Form.Group>
-                          )}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Field
-                          name='email'
-                          render={({ input, meta }) => (
-                            <Form.Group>
-                              <Form.Label>email</Form.Label>
-                              <Form.Control type='email' {...input} />
-                            </Form.Group>
-                          )}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col>
-                        <Field
-                          name='password'
-                          render={({ input, meta }) => (
-                            <Form.Group>
-                              <Form.Label>password</Form.Label>
-                              <Form.Control type='password' {...input} />
-                            </Form.Group>
-                          )}
-                        />
-                      </Col>
-                      <Col>
-                        <Field
-                          name='repeatPassword'
-                          render={({ input, meta }) => (
-                            <Form.Group>
-                              <Form.Label>repeat password</Form.Label>
-                              <Form.Control type='password' {...input} />
-                              {meta.error && meta.touched && (
-                                <span>{meta.error}</span>
-                              )}
-                            </Form.Group>
-                          )}
-                        />
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col className='mt-3'>
-                        <Button
-                          variant='success'
-                          type='submit'
-                          disabled={submitting || pristine}
-                        >
-                          submit
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Form>
-                )}
-              />
+              <Form onSubmit={handleFormSubmit}>
+                <Row>
+                  <Col>logo here</Col>
+                </Row>
+                <Row>
+                  <h3>Create Your Organization Account</h3>
+                </Row>
+                <Row className='mb-3'>
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Organization Name</Form.Label>
+                      <Form.Control type='text' name='organization_name' />
+                    </Form.Group>
+                    <small className='text-danger'>{}</small>
+                  </Col>
+                </Row>
+                <Row className='mb-3'>
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>First Name</Form.Label>
+                      <Form.Control type='text' name='given_name' />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>Last Name</Form.Label>
+                      <Form.Control type='text' name='family_name' />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className='mb-3'>
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>email</Form.Label>
+                      <Form.Control type='email' name='email' />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className='mb-3'>
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>password</Form.Label>
+                      <Form.Control type='password' name='password' />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group>
+                      <Form.Label>repeat password</Form.Label>
+                      <Form.Control type='password' name='repeatPassword' />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row className='mb-3'>
+                  <Col className='mt-3'>
+                    <Button variant='success' type='submit'>
+                      submit
+                    </Button>
+                  </Col>
+                </Row>
+              </Form>
             </Card.Body>
           </Card>
         </Col>
