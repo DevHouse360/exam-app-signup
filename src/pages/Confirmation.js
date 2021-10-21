@@ -17,14 +17,12 @@ const Confirmation = ({
     return (
       <Confirmation
         left={
-          <div className='content__messageCard'>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/welcome.png`}
-              alt='error'
-              width='inherit'
-              height='inheirt'
-            />
-          </div>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/images/welcome.png`}
+            alt='error'
+            width='auto'
+            height='100vh'
+          />
         }
         right={
           <div className='content__messageCard'>
@@ -43,14 +41,12 @@ const Confirmation = ({
     return (
       <ConfirmationContent
         left={
-          <div className='content__messageCard'>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/error.png`}
-              alt='error'
-              width='inherit'
-              height='inheirt'
-            />
-          </div>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/images/error.png`}
+            alt='error'
+            width='auto'
+            height='100vh'
+          />
         }
         right={
           <div className='content__messageCard'>
@@ -69,14 +65,12 @@ const Confirmation = ({
     return (
       <ConfirmationContent
         left={
-          <div className='content__messageCard'>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/images/error.png`}
-              alt='error'
-              width='inherit'
-              height='inheirt'
-            />
-          </div>
+          <img
+            src={`${process.env.PUBLIC_URL}/assets/images/error.png`}
+            alt='error'
+            max-width='auto'
+            height='100vh'
+          />
         }
         right={
           <div className='content__messageCard'>

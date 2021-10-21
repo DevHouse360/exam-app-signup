@@ -36,10 +36,27 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
 
   const formValidation = (values) => {
     const errors = {};
-
-    if (values.password !== values.repeatPassword) {
-      errors.repeatPassword = "Passwords fields do not match";
+    if (!values.organization_name) {
+      errors.organization_name = "name of organization is required";
     }
+    if (!values.given_name) {
+      errors.given_name = "first name is required";
+    }
+    if (!values.family_name) {
+      errors.family_name = "last name is required";
+    }
+    if (!values.email) {
+      errors.email = "email is required";
+    }
+
+    if (!values.password) {
+      errors.password = "password is required";
+    }
+    if (!values.repeat) {
+      errors.repeat = "password confirmation is required";
+    }
+
+    return errors;
   };
 
   return (
@@ -55,10 +72,10 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
           }}
         ></Col>
         <Col
-          className='vh-100 align-items-center d-flex bg-black overflow-hidden'
+          className='vh-100 align-items-center d-flex overflow-hidden'
           xl={6}
         >
-          <Card className='shadow border-0 ms-auto me-auto login-card p-2'>
+          <Card className='border-0 ms-auto me-auto login-card p-2'>
             <Card.Body className='rounded-0 text-left p-5'>
               <FinalForm
                 onSubmit={onSubmit}
@@ -66,7 +83,10 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
                 render={({ handleSubmit, values, submitting, pristine }) => (
                   <Form onSubmit={handleSubmit}>
                     <Row>
-                      <h2>Create Your Organization Account</h2>
+                      <Col>logo here</Col>
+                    </Row>
+                    <Row>
+                      <h3>Create Your Organization Account</h3>
                     </Row>
                     <Row>
                       <Col>
@@ -145,13 +165,17 @@ const SignUp = ({ handleSuccessResponse, handleErrorResponse }) => {
                         />
                       </Col>
                     </Row>
-                    <Button
-                      variant='success'
-                      type='submit'
-                      disabled={submitting || pristine}
-                    >
-                      submit
-                    </Button>
+                    <Row>
+                      <Col className='mt-3'>
+                        <Button
+                          variant='success'
+                          type='submit'
+                          disabled={submitting || pristine}
+                        >
+                          submit
+                        </Button>
+                      </Col>
+                    </Row>
                   </Form>
                 )}
               />
