@@ -12,6 +12,11 @@
   min-height: 100vh;
 }
 
+.content__left img {
+  width: auto;
+  min-height: 100vh;
+}
+
 .content__right {
   display: flex;
   flex-direction: column nowrap;
