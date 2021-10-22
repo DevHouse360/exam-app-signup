@@ -21,7 +21,7 @@ const Confirmation = ({
             src={`${process.env.PUBLIC_URL}/assets/images/welcome.png`}
             alt='error'
             width='auto'
-            height='80vh'
+            height='100vh'
           />
         }
         right={
